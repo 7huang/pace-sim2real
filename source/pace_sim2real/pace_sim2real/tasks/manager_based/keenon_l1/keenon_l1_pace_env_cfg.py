@@ -53,8 +53,37 @@ MOTOR_TABLE = [
 # 髋 roll 的频域粗估(2026-10-10 数据, 延迟取 2 步): 在没有 PACE 辨识结果时作为髋 pitch 的固定值
 HIP_ROLL_COARSE = {"armature": 0.086, "viscous_friction": 0.0, "friction": 0.8, "delay": 2.0}
 
+
+def spawn_from_urdf_single_root(prim_path: str, cfg: sim_utils.UrdfFileCfg, *args, **kwargs):
+    """
+    sim_utils.spawn_from_urdf, 之后去掉嵌套在内层的多余 articulation root。
+
+    URDF 导入器 3.0(urdf-usd-converter)在根连杆 pelvis 上同时施加 PhysicsArticulationRootAPI 与
+    NewtonArticulationRootAPI(后者内含前者)。fix_root_link = True 时 Isaac Lab 把 root 移到父 prim(Geometry),
+    但 2026-08-20 之前的 Isaac Lab 只从 pelvis 删掉 PhysicsArticulationRootAPI / PhysxArticulationAPI, 留下的
+    NewtonArticulationRootAPI 使 pelvis 仍是 root, 初始化时报 "Expected exactly one ArticulationRootAPI prim ... found 2"。
+    新版 Isaac Lab 已修复(965c091502), 这里在旧版本上做同样的清理, 新版本上为空操作。
+    """
+    from pxr import Usd, UsdPhysics
+
+    prim = sim_utils.spawn_from_urdf(prim_path, cfg, *args, **kwargs)
+    for robot in sim_utils.find_matching_prims(prim_path):
+        roots = [p for p in Usd.PrimRange(robot) if p.HasAPI(UsdPhysics.ArticulationRootAPI)]
+        for p in roots:
+            if not any(q.GetPath() != p.GetPath() and p.GetPath().HasPrefix(q.GetPath()) for q in roots):
+                continue  # 最外层的 root 保留
+            for name in p.GetAppliedSchemas():
+                if "ArticulationRoot" in name or name == "PhysxArticulationAPI":
+                    p.RemoveAppliedSchema(name)
+        left = [p.GetPath().pathString for p in Usd.PrimRange(robot) if p.HasAPI(UsdPhysics.ArticulationRootAPI)]
+        if len(left) != 1:
+            raise RuntimeError(f"{robot.GetPath()} 下应只有一个 articulation root, 清理后为 {left}")
+    return prim
+
+
 KEENON_L1_CFG = ArticulationCfg(
     spawn=sim_utils.UrdfFileCfg(
+        func=spawn_from_urdf_single_root,
         asset_path=str(URDF_PATH),
         fix_base=False,  # 由 PaceSim2realEnvCfg 设置 articulation_props.fix_root_link = True 固定 pelvis
         merge_fixed_joints=False,
