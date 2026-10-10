@@ -39,8 +39,9 @@ keenon_l1/training/keenon_l1_pace_training.py              训练用: 执行器�
 
 ## 步骤
 
-1. 数据(`data/` 被 .gitignore 忽略, 不进仓库): 每个目录含 `chirp_data.pt` 与 `chirp_data_info.json`, 放到
-   `data/keenon_l1_hip_roll/` 与 `data/keenon_l1_hip_pitch/`。在 leg_tool 目录下从 pace_chirp 运行目录生成:
+1. 数据: 2026-10-10 的两组已用 `git add -f` 提交在 `data/keenon_l1_hip_roll/` 与 `data/keenon_l1_hip_pitch/`
+   (`data/` 被 .gitignore 忽略, 新增或更新数据时同样需要 `git add -f`)。每个目录含 `chirp_data.pt` 与
+   `chirp_data_info.json`, 在 leg_tool 目录下从 pace_chirp 运行目录生成:
    ```bash
    python scripts/to_pace.py <运行目录> --dt 0.0025 --joint-order left_hip_roll_joint,right_hip_roll_joint --out <pace-sim2real>/data/keenon_l1_hip_roll/chirp_data.pt
    python scripts/to_pace.py <运行目录> --dt 0.0025 --joint-order left_hip_pitch_joint,right_hip_pitch_joint --out <pace-sim2real>/data/keenon_l1_hip_pitch/chirp_data.pt

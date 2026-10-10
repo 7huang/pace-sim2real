@@ -1,0 +1,252 @@
+{
+  "source_run": "github.com/7huang/leg_tool data/right-leg-20260929: scripts/data/20261010_093455_m_hip_pitch",
+  "dt": 0.0025,
+  "num_steps": 12800,
+  "window": [
+    "hold_pre",
+    "hold_post"
+  ],
+  "meas_resample": "linear",
+  "angle_frame": "urdf: q_urdf = (q_api * motor_direction + pos_offset) * dance_dir, leg_offset = 0",
+  "joint_order": [
+    "left_hip_pitch_joint",
+    "right_hip_pitch_joint"
+  ],
+  "gains": {
+    "left_hip_pitch_joint": {
+      "kp": 40,
+      "kd": 3
+    },
+    "right_hip_pitch_joint": {
+      "kp": 40,
+      "kd": 3
+    }
+  },
+  "initial_pos": {
+    "left_hip_pitch_joint": -0.043297771364450455,
+    "right_hip_pitch_joint": -0.0230789203196764
+  },
+  "held_not_in_order": {
+    "left_hip_roll_joint": {
+      "pos": -0.013758,
+      "kp": 100,
+      "kd": 6
+    },
+    "left_hip_yaw_joint": {
+      "pos": 0.021553,
+      "kp": 40,
+      "kd": 3
+    },
+    "left_knee_joint": {
+      "pos": -0.052052,
+      "kp": 100,
+      "kd": 6
+    },
+    "left_ankle_pitch_joint": {
+      "pos": 0.102651,
+      "kp": 30,
+      "kd": 2
+    },
+    "left_ankle_roll_joint": {
+      "pos": 0.006476,
+      "kp": 30,
+      "kd": 2
+    },
+    "right_hip_roll_joint": {
+      "pos": -0.003408,
+      "kp": 100,
+      "kd": 6
+    },
+    "right_hip_yaw_joint": {
+      "pos": 0.021172,
+      "kp": 40,
+      "kd": 3
+    },
+    "right_knee_joint": {
+      "pos": -0.003604,
+      "kp": 100,
+      "kd": 6
+    },
+    "right_ankle_pitch_joint": {
+      "pos": -0.066814,
+      "kp": 30,
+      "kd": 2
+    },
+    "right_ankle_roll_joint": {
+      "pos": 0.108245,
+      "kp": 30,
+      "kd": 2
+    },
+    "waist_yaw_joint": {
+      "pos": -0.042535,
+      "kp": 100,
+      "kd": 5
+    },
+    "waist_roll_joint": {
+      "pos": -0.065753,
+      "kp": 200,
+      "kd": 20
+    },
+    "waist_pitch_joint": {
+      "pos": -0.014493,
+      "kp": 200,
+      "kd": 20
+    },
+    "left_shoulder_pitch_joint": {
+      "pos": 0.02299,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_shoulder_roll_joint": {
+      "pos": 0.114561,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_shoulder_yaw_joint": {
+      "pos": 0.036431,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_elbow_joint": {
+      "pos": 1.599761,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_wrist_roll_joint": {
+      "pos": 0.055886,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_wrist_pitch_joint": {
+      "pos": -0.157359,
+      "kp": 8,
+      "kd": 2
+    },
+    "left_wrist_yaw_joint": {
+      "pos": 0.128042,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_shoulder_pitch_joint": {
+      "pos": -0.004572,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_shoulder_roll_joint": {
+      "pos": -0.009849,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_shoulder_yaw_joint": {
+      "pos": -0.011228,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_elbow_joint": {
+      "pos": 1.600514,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_wrist_roll_joint": {
+      "pos": -0.062371,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_wrist_pitch_joint": {
+      "pos": -0.068856,
+      "kp": 8,
+      "kd": 2
+    },
+    "right_wrist_yaw_joint": {
+      "pos": 0.028038,
+      "kp": 8,
+      "kd": 2
+    }
+  },
+  "limp_joints": [],
+  "hold": "body",
+  "ankle": {
+    "joints": [
+      "left_ankle_pitch_joint",
+      "left_ankle_roll_joint",
+      "right_ankle_pitch_joint",
+      "right_ankle_roll_joint"
+    ],
+    "kd_ff": 0,
+    "motors": [
+      {
+        "index": 4,
+        "motor_id": 5
+      },
+      {
+        "index": 5,
+        "motor_id": 6
+      },
+      {
+        "index": 10,
+        "motor_id": 11
+      },
+      {
+        "index": 11,
+        "motor_id": 12
+      }
+    ],
+    "joint_tau_limit": {
+      "pitch": 60,
+      "roll": 20
+    },
+    "motor_tau_limit": 25,
+    "note": "joint-space PD computed in C tx thread from solved joint state; motor kd = kd_ff; motor_* columns = raw motor feedback (get_motor_data frame, before parallel solve)",
+    "dof_pos_fk": {
+      "method": "exact",
+      "change_vs_recorded": {
+        "left_ankle_pitch_joint": {
+          "rms_change_rad": 9.36907516212237e-05,
+          "max_change_rad": 0.0003068088953970538
+        },
+        "left_ankle_roll_joint": {
+          "rms_change_rad": 0.0003218875182287483,
+          "max_change_rad": 0.00046650427244211267
+        },
+        "right_ankle_pitch_joint": {
+          "rms_change_rad": 8.155056634566888e-05,
+          "max_change_rad": 0.0015543589843508149
+        },
+        "right_ankle_roll_joint": {
+          "rms_change_rad": 0.00011778376827041069,
+          "max_change_rad": 0.0022878961967000427
+        }
+      }
+    }
+  },
+  "waist": {
+    "joints": [
+      "waist_roll_joint",
+      "waist_pitch_joint"
+    ],
+    "kd_ff": 0,
+    "motors": [
+      {
+        "index": 13,
+        "motor_id": 42
+      },
+      {
+        "index": 14,
+        "motor_id": 43
+      }
+    ],
+    "joint_tau_limit": {
+      "roll": 60,
+      "pitch": 60
+    },
+    "motor_tau_limit": 50,
+    "note": "waist roll/pitch (13/14) hold only; joint-space PD as for the ankles, motor kd = kd_ff[1]"
+  },
+  "chirp": {
+    "type": "linear",
+    "f0": 0.1,
+    "f1": 3.0,
+    "duration": 30.0,
+    "ramp": 1.0
+  }
+}
